@@ -36,3 +36,11 @@
     transform: rotate(360deg);
   }
 }
+
+.rounded-icon {
+  border-radius: 50%;
+}
+
+.navbar-brand img {
+  margin-right: 10px;
+}

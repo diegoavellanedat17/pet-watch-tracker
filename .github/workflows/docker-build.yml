@@ -1,0 +1,51 @@
+name: Build and Push Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+  DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+  EC2_HOST: ${{ secrets.EC2_HOST }}
+  EC2_KEY: ${{ secrets.EC2_KEY }}
+
+jobs:
+  deploy-frontend:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Debug environment variables
+        run: |
+          echo "EC2_HOST=${EC2_HOST}"
+          echo "EC2_KEY=${EC2_KEY}"
+
+      - name: Decode and save EC2 private key
+        run: |
+          echo "${{ secrets.EC2_KEY }}" | base64 --decode > ec2-private-key.pem
+          chmod 600 ec2-private-key.pem
+
+      - name: SSH into EC2 instance and deploy
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ./ec2-private-key.pem ec2-user@${EC2_HOST} << 'EOF'
+          cd /home/ec2-user/to-dos-frontend
+
+          # Pull latest code
+          git pull origin main
+
+          # Build Docker image
+          sudo docker build -t task-frontend .
+
+          # Stop previous Docker container (if running)
+          sudo docker stop task-frontend  || true
+
+          # Remove previous Docker container (if exists)
+          sudo docker rm task-frontend  || true
+
+          # Run new Docker container
+          sudo docker run -d -p 3000:3000 --name task-frontend  --restart unless-stopped task-frontend 
+          EOF
