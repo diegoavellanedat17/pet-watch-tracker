@@ -29,3 +29,13 @@
     opacity: 1;
   }
 }
+
+.map-container {
+  height: 80vh; /* Default height for larger screens */
+}
+
+@media (max-width: 768px) {
+  .map-container {
+    height: 50vh; /* Reduced height for mobile screens */
+  }
+}

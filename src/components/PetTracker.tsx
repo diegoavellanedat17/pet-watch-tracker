@@ -1,6 +1,10 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import MapComponent from "./MapComponent";
+import { CircularProgressbar, buildStyles } from "react-circular-progressbar";
+import "react-circular-progressbar/dist/styles.css";
+import { Container, Row, Col } from "react-bootstrap";
+import "./PetTracker.css";
 
 interface PetLocation {
   id: number;
@@ -35,12 +39,65 @@ const PetTracker: React.FC = () => {
     };
 
     fetchData();
-    const intervalId = setInterval(fetchData, 5000); // Fetch data every minute
+    const intervalId = setInterval(fetchData, 20000); // Fetch data every minute
 
     return () => clearInterval(intervalId);
   }, []);
 
-  return <MapComponent position={position} latestPosition={latestPosition} />;
+  return (
+    <Container fluid>
+      <Row>
+        <Col lg={8} xs={12}>
+          <MapComponent position={position} latestPosition={latestPosition} />
+        </Col>
+        <Col
+          lg={4}
+          xs={12}
+          className="d-flex flex-column align-items-center mt-5"
+        >
+          <h3>Physical Activity Levels</h3>
+          <div className="gauge-container">
+            <div className="gauge">
+              <CircularProgressbar
+                value={50}
+                text={`${50}%`}
+                styles={buildStyles({
+                  pathColor: `rgba(62, 152, 199, ${50 / 100})`,
+                  textColor: "#3e98c7",
+                  trailColor: "#d6d6d6",
+                })}
+              />
+              <p>Low Physical Activity</p>
+            </div>
+            <div className="gauge">
+              <CircularProgressbar
+                value={20}
+                text={`${20}%`}
+                styles={buildStyles({
+                  pathColor: `rgba(255, 140, 0, ${20 / 100})`,
+                  textColor: "#ff8c00",
+                  trailColor: "#d6d6d6",
+                })}
+              />
+              <p>Medium Physical Activity</p>
+            </div>
+            <div className="gauge">
+              <CircularProgressbar
+                value={30}
+                text={`${30}%`}
+                styles={buildStyles({
+                  pathColor: `rgba(0, 200, 83, ${30 / 100})`,
+                  textColor: "#00c853",
+                  trailColor: "#d6d6d6",
+                })}
+              />
+              <p>High Physical Activity</p>
+            </div>
+          </div>
+        </Col>
+      </Row>
+    </Container>
+  );
 };
 
 export default PetTracker;

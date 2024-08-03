@@ -23,11 +23,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
   latestPosition,
 }) => {
   return (
-    <MapContainer
-      center={position}
-      zoom={16}
-      style={{ height: "100vh", width: "100%" }}
-    >
+    <MapContainer center={position} zoom={16} className="map-container">
       <TileLayer
         url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
@@ -41,21 +37,7 @@ const MapComponent: React.FC<MapComponentProps> = ({
           <Popup>
             Pet Location: Lat: {latestPosition.lat}, Lon: {latestPosition.lon}
           </Popup>
-          {/* Ensure the border is positioned correctly around the icon */}
-          <div
-            className="animated-border"
-            style={{
-              position: "absolute",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              width: "50px",
-              height: "50px",
-              borderRadius: "50%",
-              border: "2px solid green",
-              animation: "pulse 1s infinite",
-            }}
-          />
+          <div className="animated-border" />
         </Marker>
       )}
     </MapContainer>
