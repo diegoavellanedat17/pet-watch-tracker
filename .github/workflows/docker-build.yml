@@ -32,20 +32,20 @@ jobs:
       - name: SSH into EC2 instance and deploy
         run: |
           ssh -o StrictHostKeyChecking=no -i ./ec2-private-key.pem ec2-user@${EC2_HOST} << 'EOF'
-          cd /home/ec2-user/to-dos-frontend
+          cd /home/ec2-user/pet-watch-tracker
 
           # Pull latest code
           git pull origin main
 
           # Build Docker image
-          sudo docker build -t task-frontend .
+          sudo docker build -t pet-watch-tracker .
 
           # Stop previous Docker container (if running)
-          sudo docker stop task-frontend  || true
+          sudo docker stop pet-watch-tracker  || true
 
           # Remove previous Docker container (if exists)
-          sudo docker rm task-frontend  || true
+          sudo docker rm pet-watch-tracker  || true
 
           # Run new Docker container
-          sudo docker run -d -p 3000:3000 --name task-frontend  --restart unless-stopped task-frontend 
+          sudo docker run -d -p 3000:3000 --name pet-watch-tracker  --restart unless-stopped pet-watch-tracker 
           EOF
