@@ -7,7 +7,6 @@ const HomePage: React.FC = () => {
   return (
     <div className="homepage-container">
       <Hero />
-      <AboutUs />
     </div>
   );
 };
