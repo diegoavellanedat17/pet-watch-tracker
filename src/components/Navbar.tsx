@@ -1,7 +1,7 @@
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import logo from "../assets/logo1.png";
+import logo from "../assets/logoPetWatchBG.png";
 
 const NavigationBar: React.FC = () => {
   return (
@@ -16,8 +16,8 @@ const NavigationBar: React.FC = () => {
         <Navbar.Brand>
           <img
             src={logo}
-            width="30"
-            height="30"
+            width="40"
+            height="50"
             className="d-inline-block align-top"
             alt="Logo"
           />
