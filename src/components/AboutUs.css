@@ -1,0 +1,28 @@
+:root {
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --background-color: #e0f7fa;
+  --text-color: #333;
+  --button-hover-color: #0056b3;
+}
+
+.about-us-container {
+  background-color: white;
+  padding: 40px 0;
+}
+
+.about-title {
+  font-size: 2rem;
+  margin-bottom: 20px;
+  color: var(--text-color);
+}
+
+.about-description {
+  font-size: 1rem;
+  color: var(--text-color);
+}
+
+.pet-image {
+  border-radius: 15px;
+  margin-top: 20px;
+}
