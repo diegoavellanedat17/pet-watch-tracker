@@ -7,8 +7,8 @@ const Hero: React.FC = () => {
   return (
     <div className="hero-section">
       <Container fluid className="p-0 mt-5 hero-container">
-        <Row className="m-0 align-items-center">
-          <Col md={6} className="p-5 ">
+        <Row className="m-0 align-items-start ">
+          <Col md={6} className="p-3 text-section">
             <h1 className="hero-title display-4">PetWatch</h1>
             <p className="hero-subtitle lead">
               Una app para que hagas seguimiento de tu mascota con un celular

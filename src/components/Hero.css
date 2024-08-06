@@ -6,7 +6,7 @@
   align-items: center;
   justify-content: center;
   height: 70vh; /* Occupies 80% of the viewport height on mobile */
-  padding-top: 200px; /* Adjust based on the navbar height */
+  padding-top: 200px;
   mask-image: linear-gradient(black 85%, transparent);
 }
 
@@ -48,6 +48,9 @@
 }
 
 @media (min-width: 768px) {
+  .text-section {
+    margin-top: 200px;
+  }
   .hero-subtitle {
     font-size: 16px;
   }
@@ -66,5 +69,9 @@
 
   .download-button {
     display: block;
+  }
+
+  .hero-container {
+    text-align: center;
   }
 }
