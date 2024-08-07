@@ -8,20 +8,22 @@ const Hero: React.FC = () => {
     <div className="hero-section">
       <Container fluid className="p-0 mt-5 hero-container">
         <Row className="m-0 align-items-start ">
-          <Col md={6} className="p-3 text-section">
+          <Col md={5} className="p-3 text-section ">
             <h1 className="hero-title display-4">PetWatch</h1>
             <p className="hero-subtitle lead">
               Una app para que hagas seguimiento de tu mascota con un celular
               viejo!
             </p>
-            <Button
-              variant="primary"
-              className="rounded-pill download-button"
-              href="https://play.google.com/store"
-              target="_blank"
-            >
-              Descargar App
-            </Button>
+            <div className="d-flex justify-content-center">
+              <Button
+                variant="primary"
+                className="rounded-pill download-button mt-2"
+                href="https://play.google.com/store"
+                target="_blank"
+              >
+                Descargar App
+              </Button>
+            </div>
           </Col>
 
           <Col md={6} className="p-0">
