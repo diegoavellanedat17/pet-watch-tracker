@@ -36,11 +36,13 @@
   font-weight: 800;
   margin: 0;
   padding: 0;
-  color: var(--primary-color);
+  /* color: var(--primary-color); */
+  color: #f2a71b;
 }
 
 .hero-subtitle {
   font-size: 10px;
+  color: white;
 }
 
 .download-button {
@@ -71,6 +73,8 @@
   .download-button {
     display: block;
     width: 50%;
+    background-color: #f2a71b;
+    border: none;
   }
 
   .hero-container {

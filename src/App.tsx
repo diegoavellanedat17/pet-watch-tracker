@@ -4,7 +4,12 @@ import NavigationBar from "./components/Navbar";
 import HomePage from "./components/HomePage"; // Asegúrate de importar el componente de la landing page
 import PetTracker from "./components/PetTracker";
 import History from "./components/History";
+import { initGA, logPageView } from "./utils/analytics";
 import "./App.css";
+
+initGA();
+
+logPageView();
 
 const App: React.FC = () => {
   return (

@@ -46,6 +46,7 @@ const steps = [
 const CustomStepLabel = styled(StepLabel)({
   "& .MuiStepIcon-root": {
     fontSize: "2rem",
+    color: "#f2a71b",
   },
 });
 
@@ -69,7 +70,7 @@ export default function PetWatchStepper() {
       sx={{
         maxWidth: 600,
         margin: "auto",
-        backgroundColor: "#fff",
+        backgroundColor: "#6c757d",
         padding: 4,
         borderRadius: 2,
         boxShadow: 2,
