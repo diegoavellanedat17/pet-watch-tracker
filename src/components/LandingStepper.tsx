@@ -12,7 +12,7 @@ import "./LandingStepper.css";
 
 const steps = [
   {
-    label: "Crea tu cuenta en PetWatch",
+    label: "Crea tu cuenta",
     description:
       "Regístrate en la plataforma y obtén acceso a todas las funcionalidades.",
   },
@@ -46,7 +46,13 @@ const steps = [
 const CustomStepLabel = styled(StepLabel)({
   "& .MuiStepIcon-root": {
     fontSize: "2rem",
-    color: "#f2a71b",
+    color: "#f2a71b", // Default color
+    "&.Mui-active": {
+      color: "#0056b3", // Active step color
+    },
+    "&.Mui-completed": {
+      color: "#0056b3", // Completed step color
+    },
   },
 });
 
@@ -70,7 +76,7 @@ export default function PetWatchStepper() {
       sx={{
         maxWidth: 600,
         margin: "auto",
-        backgroundColor: "#6c757d",
+        backgroundColor: "white",
         padding: 4,
         borderRadius: 2,
         boxShadow: 2,
@@ -80,11 +86,18 @@ export default function PetWatchStepper() {
       <Typography
         variant="h4"
         align="center"
-        className="steps-title"
+        sx={{
+          fontFamily: "Poppins, sans-serif",
+          fontWeight: 800,
+          color: "#f2a71b",
+          margin: 0,
+          padding: 0,
+        }}
         gutterBottom
       >
-        Como empezar
+        Cómo empezar
       </Typography>
+
       <Stepper activeStep={activeStep} orientation="vertical">
         {steps.map((step, index) => (
           <Step key={step.label}>
@@ -96,16 +109,28 @@ export default function PetWatchStepper() {
                   <Button
                     variant="contained"
                     onClick={handleNext}
-                    sx={{ mt: 1, mr: 1 }}
+                    sx={{
+                      mt: 1,
+                      mr: 1,
+                      backgroundColor: "#0056b3",
+                      color: "white",
+                      "&:hover": { backgroundColor: "#d18a00" },
+                    }}
                   >
-                    {index === steps.length - 1 ? "Finish" : "Continue"}
+                    {index === steps.length - 1 ? "Terminar" : "Continuar"}
                   </Button>
                   <Button
                     disabled={index === 0}
                     onClick={handleBack}
-                    sx={{ mt: 1, mr: 1 }}
+                    sx={{
+                      mt: 1,
+                      mr: 1,
+                      backgroundColor: "#0056b3",
+                      color: "white",
+                      "&:hover": { backgroundColor: "#d18a00" },
+                    }}
                   >
-                    Back
+                    Atrás
                   </Button>
                 </div>
               </Box>
@@ -115,9 +140,11 @@ export default function PetWatchStepper() {
       </Stepper>
       {activeStep === steps.length && (
         <Paper square elevation={0} sx={{ p: 3, mt: 2 }}>
-          <Typography>All steps completed - you&apos;re finished</Typography>
+          <Typography>
+            Todos los pasos han sido terminados, disfruta{" "}
+          </Typography>
           <Button onClick={handleReset} sx={{ mt: 1, mr: 1 }}>
-            Reset
+            Resetear
           </Button>
         </Paper>
       )}

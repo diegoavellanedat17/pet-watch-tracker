@@ -1,0 +1,7 @@
+.navbar-custom {
+  background-color: var(--background-color) !important;
+}
+
+.navbar-custom .nav-link {
+  color: #ffffff !important;
+}

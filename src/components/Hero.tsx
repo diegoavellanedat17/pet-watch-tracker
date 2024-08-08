@@ -11,8 +11,7 @@ const Hero: React.FC = () => {
           <Col md={5} className="p-3 text-section ">
             <h1 className="hero-title display-4">PetWatch</h1>
             <p className="hero-subtitle lead">
-              Una app para que hagas seguimiento de tu mascota con un celular
-              viejo!
+              Monitorea a tu mascota como si estuvieras a su lado
             </p>
             <div className="d-flex justify-content-center">
               <Button
