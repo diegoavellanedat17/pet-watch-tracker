@@ -1,14 +1,8 @@
-:root {
-  --primary-color: #007bff;
-  --secondary-color: #6c757d;
-  --background-color: #e0f7fa;
-  --text-color: #333;
-  --button-hover-color: #0056b3;
-}
-
 .about-us-container {
-  background-color: #a5a692;
-  padding: 40px 0;
+  width: 100vw;
+  margin-left: calc(-50vw + 50%);
+  padding: 40px;
+  background-color: white;
 }
 
 .about-title {
