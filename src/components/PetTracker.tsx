@@ -25,7 +25,7 @@ const PetTracker: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<PetLocation[]>(
-          "http://54.173.182.6:3000/api/coordinates"
+          "https://54.173.182.6:443/api/coordinates"
         );
         const data = response.data;
         if (data.length > 0) {
