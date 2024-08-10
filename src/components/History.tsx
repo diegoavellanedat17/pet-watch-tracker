@@ -36,7 +36,7 @@ const History: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await axios.get<PetLocation[]>(
-          "https://54.173.182.6:443/api/coordinates"
+          "https://api.petwatch.tech/api/coordinates"
         );
         setLocations(response.data);
       } catch (error) {
