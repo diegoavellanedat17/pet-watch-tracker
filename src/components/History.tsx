@@ -35,8 +35,16 @@ const History: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const username = process.env.BASIC_AUTH_USERNAME || "admin";
+        const password = process.env.BASIC_AUTH_PASSWORD || "password";
+        const token = btoa(`${username}:${password}`);
         const response = await axios.get<PetLocation[]>(
-          "https://api.petwatch.tech/api/coordinates"
+          "https://api.petwatch.tech/coordinates",
+          {
+            headers: {
+              Authorization: `Basic ${token}`,
+            },
+          }
         );
         setLocations(response.data);
       } catch (error) {

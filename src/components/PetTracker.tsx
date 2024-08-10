@@ -24,8 +24,16 @@ const PetTracker: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+        const username = "yourUsername";
+        const password = "yourPassword";
+        const token = btoa(`${username}:${password}`);
         const response = await axios.get<PetLocation[]>(
-          "https://api.petwatch.tech/api/coordinates"
+          "https://api.petwatch.tech/coordinates",
+          {
+            headers: {
+              Authorization: `Basic ${token}`,
+            },
+          }
         );
         const data = response.data;
         if (data.length > 0) {
