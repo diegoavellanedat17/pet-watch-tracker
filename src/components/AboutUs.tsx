@@ -5,29 +5,21 @@ import "./AboutUs.css";
 const AboutUs: React.FC = () => {
   return (
     <div className="about-us-container text-center">
-      <h1 className="hero-title mb-5">¿ Qué es PetWatch?</h1>
+      <h1 className="hero-title mb-5">¿Qué es PetWatch?</h1>
       <p>
-        Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas nec
-        felis ac justo malesuada molestie non ac diam. Praesent blandit sapien
-        vel odio iaculis sodales quis ut nisl. Integer tincidunt orci a nisl
-        pharetra facilisis. Aenean lacus elit, faucibus sit amet dolor ut,
-        feugiat bibendum nisi. Etiam vehicula, nisi quis tincidunt vestibulum,
-        massa nulla pretium urna, aliquam dignissim est nibh eget metus. Fusce
-        tincidunt leo lectus, non dapibus neque lacinia vel. Nullam in ligula
-        commodo elit aliquet tempus. Interdum et malesuada fames ac ante ipsum
-        primis in faucibus. Nam mollis quam orci. Vivamus et finibus augue.
-        Phasellus molestie eros sapien, quis consequat nisi iaculis non.
-        Curabitur pellentesque id quam vitae viverra. Nulla id maximus eros.
-        Suspendisse porttitor sit amet tellus non dapibus. Nulla vestibulum
-        tincidunt nunc quis finibus. Proin eget leo molestie, finibus mauris
-        quis, fringilla diam. Integer facilisis nec magna ac tempus. Proin risus
-        nisl, blandit vel fermentum eget, aliquet et tortor. Sed vel euismod
-        nunc, eu ornare lacus. Morbi et nisl nec lorem fringilla ornare quis ac
-        lorem. Ut tristique interdum fringilla. Suspendisse tortor sapien,
-        cursus at nibh sit amet, lacinia placerat magna. Suspendisse lacinia
-        enim a ex efficitur, ut aliquet libero maximus. Nulla consectetur, leo
-        vel luctus hendrerit, nisi purus efficitur lacus, sit amet venenatis
-        nibh turpis vitae enim.
+        Petwatch es una aplicación diseñada para brindarle tranquilidad a dueños
+        de perros al permitirles rastrear la ubicación de sus mascotas en tiempo
+        real. Petwatch es creada para quienes deseamos mantener a nuestras
+        mascotas seguras y bajo vigilancia constante, ofreciendo una solución
+        confiable y fácil de usar para el rastreo y la protección de nuestros
+        amigos peludos. Si tu mascota esta lejos de ti por que fue a colegio,
+        guarderia, esta en la veterinaria o en hotel por que tuviste que viajar
+        , puedes quedarte tranquilo y utilizar PetWatch para saber que tu
+        mascota permanece en una zona segura y también puedes saber si esta en
+        movimiento o permanece mucho tiempo quieto (encerrado). Con PetWatch,
+        puedes monitorear la ubicación de tu perro desde cualquier lugar,
+        gracias a un sistema de rastreo preciso y confiable. Recibe también
+        notificaciones o alertas de movimientos inusuales.
       </p>
     </div>
   );
