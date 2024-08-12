@@ -3,6 +3,11 @@ import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import axios from "axios";
 import "./JoinUs.css";
 
+const validatePhoneNumber = (phone: string): boolean => {
+  const phoneRegex = /^\d{10}$/;
+  return phoneRegex.test(phone);
+};
+
 const JoinUs: React.FC = () => {
   const [contributionType, setContributionType] = useState("");
   const [email, setEmail] = useState("");
@@ -31,6 +36,12 @@ const JoinUs: React.FC = () => {
 
     if (!mappedType) {
       setError("Tipo de contribución no válido.");
+      setShowSuccess(false);
+      return;
+    }
+
+    if (!validatePhoneNumber(phone)) {
+      setError("El número de teléfono no es válido.");
       setShowSuccess(false);
       return;
     }
@@ -117,7 +128,7 @@ const JoinUs: React.FC = () => {
               >
                 <option value="">Selecciona una opción</option>
                 <option value="desarrollo">Desarrollo</option>
-                <option value="usar">Usar el producto</option>
+                <option value="usar">Dar feedback del producto</option>
                 <option value="invertir">Invertir</option>
               </Form.Control>
             </Form.Group>

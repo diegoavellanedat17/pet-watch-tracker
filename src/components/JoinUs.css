@@ -2,10 +2,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* Full viewport height */
+  height: 100vh;
   text-align: center;
-  padding: 100px;
-  margin-top: 100px;
+  padding: 20px;
+  margin-top: 10px;
 }
 
 .join-us-container h2 {
@@ -64,4 +64,11 @@
 .join-us-form {
   width: 100%;
   max-width: 600px;
+}
+
+@media (min-width: 768px) {
+  .join-us-container {
+    padding: 100px;
+    margin-top: 100px;
+  }
 }

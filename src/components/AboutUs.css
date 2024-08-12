@@ -1,22 +1,12 @@
 .about-us-container {
   width: 100vw;
   margin-left: calc(-50vw + 50%);
-  padding: 70px;
+  padding: 40px;
   background-color: white;
 }
 
-.about-title {
-  font-size: 2rem;
-  margin-bottom: 20px;
-  color: var(--text-color);
-}
-
-.about-description {
-  font-size: 1rem;
-  color: var(--text-color);
-}
-
-.pet-image {
-  border-radius: 15px;
-  margin-top: 20px;
+@media (min-width: 768px) {
+  .about-us-container {
+    padding: 100px;
+  }
 }
