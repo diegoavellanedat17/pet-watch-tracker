@@ -1,14 +1,14 @@
 import React from "react";
 import { Navbar, Nav } from "react-bootstrap";
 import { LinkContainer } from "react-router-bootstrap";
-import logo from "../assets/logoPetWatchBG.png";
+import logo from "../assets/logoWhite.png";
 import "./Navbar.css";
 
 const NavigationBar: React.FC = () => {
   return (
     <Navbar
       expand="lg"
-      className="p-3 fixed-top navbar-custom"
+      className="p-3 fixed-top navbar-custom "
       style={{
         backgroundColor: "var(--background-color)",
       }}
@@ -17,7 +17,7 @@ const NavigationBar: React.FC = () => {
         <Navbar.Brand>
           <img
             src={logo}
-            width="40"
+            width="50"
             height="50"
             className="d-inline-block align-top"
             alt="Logo"

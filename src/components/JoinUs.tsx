@@ -47,8 +47,9 @@ const JoinUs: React.FC = () => {
     }
 
     try {
-      const username = process.env.BASIC_AUTH_USERNAME || "admin";
-      const password = process.env.BASIC_AUTH_PASSWORD || "password";
+      const username = process.env.REACT_APP_BASIC_AUTH_USERNAME || "admin";
+      const password = process.env.REACT_APP_BASIC_AUTH_PASSWORD || "password";
+
       const token = btoa(`${username}:${password}`);
 
       const response = await axios.post(
