@@ -1,0 +1,18 @@
+.register-container {
+  color: white;
+  margin-top: 100px;
+}
+
+.phone-input .form-control {
+  color: black !important;
+  background-color: white !important;
+}
+
+.light-color-text {
+  color: white;
+}
+
+.phone-input .flag-dropdown {
+  color: black !important;
+  background-color: white !important;
+}

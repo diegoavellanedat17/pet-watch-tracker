@@ -44,3 +44,34 @@
 .navbar-brand img {
   margin-right: 10px;
 }
+
+/* Set custom style for all buttons, excluding navbar buttons */
+button:not(.navbar-toggler),
+.btn:not(.navbar-toggler) {
+  background-color: #f2a71b !important;
+  border-color: #f2a71b !important;
+  color: white !important;
+}
+
+button:not(.navbar-toggler):hover,
+.btn:not(.navbar-toggler):hover {
+  background-color: #e6951a !important; /* Slightly darker shade for hover */
+  border-color: #e6951a !important;
+  color: white !important;
+}
+
+button:not(.navbar-toggler):focus,
+.btn:not(.navbar-toggler):focus {
+  background-color: #f2a71b !important;
+  border-color: #f2a71b !important;
+  color: white !important;
+  box-shadow: 0 0 0 0.2rem rgba(242, 167, 27, 0.5) !important;
+}
+
+button:not(.navbar-toggler):disabled,
+.btn:not(.navbar-toggler):disabled {
+  background-color: #f2a71b !important;
+  border-color: #f2a71b !important;
+  opacity: 0.65 !important;
+  color: white !important;
+}
