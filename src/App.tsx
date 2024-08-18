@@ -13,6 +13,7 @@ import { initGA, logPageView } from "./utils/analytics";
 import Register from "./components/Register";
 import Login from "./components/Login";
 import Dashboard from "./components/Dashboard";
+import NotFound from "./components/NotFound";
 import "./App.css";
 
 initGA();
@@ -42,6 +43,7 @@ const App: React.FC = () => {
             path="/dashboard"
             element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
           />
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </div>
     </Router>
