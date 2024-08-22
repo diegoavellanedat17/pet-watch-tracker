@@ -2,8 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import axios from "axios";
-import PhoneInput from "react-phone-input-2";
-import "react-phone-input-2/lib/bootstrap.css";
+import PhoneInputField from "./PhoneInputField";
 import "./Register.css";
 
 const Register: React.FC = () => {
@@ -126,13 +125,9 @@ const Register: React.FC = () => {
 
               <Form.Group controlId="phoneNumber" className="mb-3">
                 <Form.Label>Phone Number</Form.Label>
-                <PhoneInput
-                  country={"co"}
+                <PhoneInputField
                   value={formData.phoneNumber}
                   onChange={handlePhoneChange}
-                  inputClass="phone-input"
-                  inputStyle={{ width: "100%", height: "20px" }}
-                  containerStyle={{ color: "black" }}
                 />
               </Form.Group>
               {error && <Alert variant="danger">{error}</Alert>}

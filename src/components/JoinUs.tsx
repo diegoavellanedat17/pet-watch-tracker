@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
 import axios from "axios";
+import PhoneInputField from "./PhoneInputField";
 import "./JoinUs.css";
 
 const validatePhoneNumber = (phone: string): boolean => {
@@ -108,13 +109,7 @@ const JoinUs: React.FC = () => {
 
             <Form.Group controlId="phone" className="mb-3">
               <Form.Label className="input-label">Teléfono:</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="123-456-7890"
-                value={phone}
-                onChange={(e) => setPhone(e.target.value)}
-                required
-              />
+              <PhoneInputField value={phone} onChange={setPhone} />
             </Form.Group>
 
             <Form.Group controlId="contribution" className="mb-3">
