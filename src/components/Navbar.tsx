@@ -8,7 +8,7 @@ const NavigationBar: React.FC = () => {
   return (
     <Navbar
       expand="lg"
-      className="p-3 fixed-top navbar-custom "
+      className="p-3 fixed-top navbar-custom"
       style={{
         backgroundColor: "var(--background-color)",
       }}
@@ -26,12 +26,22 @@ const NavigationBar: React.FC = () => {
       </LinkContainer>
       <Navbar.Toggle aria-controls="basic-navbar-nav" />
       <Navbar.Collapse id="basic-navbar-nav">
-        <Nav className="ml-auto">
-          <LinkContainer to="/">
-            <Nav.Link style={{ color: "#ffffff" }}>Home</Nav.Link>
-          </LinkContainer>
+        <Nav className="ms-auto">
           <LinkContainer to="/history">
-            <Nav.Link style={{ color: "var(--text-color)" }}>History</Nav.Link>
+            <Nav.Link
+              className="nav-link-padding"
+              style={{ color: "var(--text-color)" }}
+            >
+              History
+            </Nav.Link>
+          </LinkContainer>
+          <LinkContainer to="/register">
+            <Nav.Link
+              className="nav-link-padding"
+              style={{ color: "var(--text-color)" }}
+            >
+              Register
+            </Nav.Link>
           </LinkContainer>
         </Nav>
       </Navbar.Collapse>
