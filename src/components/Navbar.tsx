@@ -4,7 +4,15 @@ import { LinkContainer } from "react-router-bootstrap";
 import logo from "../assets/logoWhite.png";
 import "./Navbar.css";
 
-const NavigationBar: React.FC = () => {
+interface NavigationBarProps {
+  isAuthenticated: boolean;
+  onLogout: () => void;
+}
+
+const NavigationBar: React.FC<NavigationBarProps> = ({
+  isAuthenticated,
+  onLogout,
+}) => {
   return (
     <Navbar
       expand="lg"
@@ -17,8 +25,8 @@ const NavigationBar: React.FC = () => {
         <Navbar.Brand>
           <img
             src={logo}
-            width="50"
-            height="50"
+            width="40"
+            height="40"
             className="d-inline-block align-top"
             alt="Logo"
           />
@@ -35,14 +43,34 @@ const NavigationBar: React.FC = () => {
               History
             </Nav.Link>
           </LinkContainer>
-          <LinkContainer to="/register">
+          {isAuthenticated ? (
             <Nav.Link
               className="nav-link-padding"
               style={{ color: "var(--text-color)" }}
+              onClick={onLogout}
             >
-              Register
+              Logout
             </Nav.Link>
-          </LinkContainer>
+          ) : (
+            <>
+              <LinkContainer to="/register">
+                <Nav.Link
+                  className="nav-link-padding"
+                  style={{ color: "var(--text-color)" }}
+                >
+                  Registro
+                </Nav.Link>
+              </LinkContainer>
+              <LinkContainer to="/login">
+                <Nav.Link
+                  className="nav-link-padding"
+                  style={{ color: "var(--text-color)" }}
+                >
+                  Ingresar
+                </Nav.Link>
+              </LinkContainer>
+            </>
+          )}
         </Nav>
       </Navbar.Collapse>
     </Navbar>

@@ -24,24 +24,43 @@ const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   useEffect(() => {
     const accessToken = localStorage.getItem("accessToken");
+    console.log("accessToken", accessToken);
     if (accessToken) {
       setIsAuthenticated(true);
     }
+    console.log(isAuthenticated);
   }, []);
+
+  const handleLogout = () => {
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("idToken");
+    localStorage.removeItem("refreshToken");
+    setIsAuthenticated(false);
+  };
 
   return (
     <Router>
-      <NavigationBar />
+      <NavigationBar
+        isAuthenticated={isAuthenticated}
+        onLogout={handleLogout}
+      />
       <div className="container mt-3">
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/register" element={<Register />} />
-          <Route path="/login" element={<Login />} />
+          <Route
+            path="/login"
+            element={
+              isAuthenticated ? <Navigate to="/dashboard" replace /> : <Login />
+            }
+          />
           <Route path="/pet-tracker" element={<PetTracker />} />
           <Route path="/history" element={<History />} />
           <Route
             path="/dashboard"
-            element={isAuthenticated ? <Dashboard /> : <Navigate to="/login" />}
+            element={
+              isAuthenticated ? <Dashboard /> : <Navigate to="/login" replace />
+            }
           />
           <Route path="*" element={<NotFound />} />
         </Routes>

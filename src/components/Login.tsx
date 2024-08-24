@@ -1,4 +1,3 @@
-// src/components/Login.tsx
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
@@ -25,16 +24,20 @@ const Login: React.FC = () => {
         username: formData.username,
         password: formData.password,
       });
-      const { accessToken, idToken, refreshToken } =
-        response.data.data.AuthenticationResult;
+
+      const {
+        AccessToken: accessToken,
+        IdToken: idToken,
+        RefreshToken: refreshToken,
+      } = response.data.data.AuthenticationResult;
 
       // Store tokens in localStorage
       localStorage.setItem("accessToken", accessToken);
       localStorage.setItem("idToken", idToken);
       localStorage.setItem("refreshToken", refreshToken);
 
-      // Redirect to Dashboard
-      navigate("/dashboard");
+      // Redirect to Dashboard after successful login
+      window.location.href = "/dashboard";
     } catch (error) {
       console.error(error);
       setError("Invalid username or password. Please try again.");
