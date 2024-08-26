@@ -7,6 +7,7 @@ import {
 } from "react-router-dom";
 import NavigationBar from "./components/Navbar";
 import HomePage from "./components/HomePage";
+import axios from "axios";
 import PetTracker from "./components/PetTracker";
 import History from "./components/History";
 import { initGA, logPageView } from "./utils/analytics";
@@ -22,13 +23,34 @@ logPageView();
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
-    console.log("accessToken", accessToken);
-    if (accessToken) {
-      setIsAuthenticated(true);
-    }
-    console.log(isAuthenticated);
+    const validateAccessToken = async () => {
+      const accessToken = localStorage.getItem("accessToken");
+      if (accessToken) {
+        try {
+          const response = await axios.get(
+            "https://api.petwatch.tech/get-current-user",
+            {
+              headers: {
+                Authorization: `Bearer ${accessToken}`,
+              },
+            }
+          );
+
+          if (response.data && response.data.data) {
+            setIsAuthenticated(true);
+          } else {
+            handleLogout();
+          }
+        } catch (error) {
+          console.error("Token validation failed", error);
+          handleLogout();
+        }
+      }
+    };
+
+    validateAccessToken();
   }, []);
 
   const handleLogout = () => {
