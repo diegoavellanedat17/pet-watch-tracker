@@ -47,14 +47,14 @@ const Register: React.FC = () => {
 
     try {
       await axios.post("https://api.petwatch.tech/verificate-code", {
-        username: formData.username,
+        username: formData.email,
         code: verificationCode,
       });
 
       const loginResponse = await axios.post(
         "https://api.petwatch.tech/login",
         {
-          username: formData.username,
+          username: formData.email,
           password: formData.password,
         }
       );

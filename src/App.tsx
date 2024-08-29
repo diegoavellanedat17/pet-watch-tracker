@@ -23,6 +23,7 @@ logPageView();
 
 const App: React.FC = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [username, setUsername] = useState("");
 
   useEffect(() => {
     const validateAccessToken = async () => {
@@ -40,6 +41,7 @@ const App: React.FC = () => {
 
           if (response.data && response.data.data) {
             setIsAuthenticated(true);
+            setUsername(response.data.data.username);
           } else {
             handleLogout();
           }
@@ -81,7 +83,11 @@ const App: React.FC = () => {
           <Route
             path="/dashboard"
             element={
-              isAuthenticated ? <Dashboard /> : <Navigate to="/login" replace />
+              isAuthenticated ? (
+                <Dashboard username={username} />
+              ) : (
+                <Navigate to="/login" replace />
+              )
             }
           />
           <Route path="*" element={<NotFound />} />
