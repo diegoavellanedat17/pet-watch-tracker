@@ -1,15 +1,8 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Row,
-  Col,
-  Card,
-  Button,
-  Modal,
-  Form,
-} from "react-bootstrap";
+import { Container, Row, Col, Button, Modal, Form } from "react-bootstrap";
 import axios from "axios";
-import PetCard from "./PetCard"; // Import the PetCard component
+import PetCard from "./PetCard";
+import { FaPlus } from "react-icons/fa";
 import "./Dashboard.css";
 
 interface DashboardProps {
@@ -28,13 +21,16 @@ interface Pet {
 
 const Dashboard = ({ username }: DashboardProps): JSX.Element => {
   const [showModal, setShowModal] = useState(false);
+  const [modalMode, setModalMode] = useState<"create" | "update">("create");
+  const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
   const [petData, setPetData] = useState({
     name: "",
     age: "",
     type: "",
     breed: "",
   });
-  const [pets, setPets] = useState<Pet[]>([]); // State to hold pets data
+  const [pets, setPets] = useState<Pet[]>([]);
+
   const fetchPets = async () => {
     try {
       const accessToken = localStorage.getItem("accessToken");
@@ -45,9 +41,14 @@ const Dashboard = ({ username }: DashboardProps): JSX.Element => {
         },
       });
 
-      setPets(response.data.pets);
+      if (response && response.data) {
+        setPets(response.data);
+      } else {
+        setPets([]);
+      }
     } catch (error) {
       console.error("Error fetching pets", error);
+      setPets([]);
     }
   };
 
@@ -56,6 +57,26 @@ const Dashboard = ({ username }: DashboardProps): JSX.Element => {
   }, []);
 
   const handleCreatePet = () => {
+    setModalMode("create");
+    setPetData({
+      name: "",
+      age: "",
+      type: "",
+      breed: "",
+    });
+    setShowModal(true);
+  };
+
+  const handleEditPet = (pet: Pet) => {
+    setModalMode("update");
+    console.log(pet);
+    setSelectedPet(pet);
+    setPetData({
+      name: pet.name,
+      age: pet.age.toString(),
+      type: pet.type,
+      breed: pet.breed,
+    });
     setShowModal(true);
   };
 
@@ -71,53 +92,108 @@ const Dashboard = ({ username }: DashboardProps): JSX.Element => {
     try {
       const accessToken = localStorage.getItem("accessToken");
 
-      const response = await axios.post(
-        "https://api.petwatch.tech/pet",
-        { ...petData },
-        {
-          headers: {
-            Authorization: `Bearer ${accessToken}`,
-          },
-        }
-      );
+      if (modalMode === "create") {
+        const response = await axios.post(
+          "https://api.petwatch.tech/pet",
+          { ...petData },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
 
-      if (response.status === 201) {
-        alert("Pet created successfully");
-        handleCloseModal();
-        fetchPets();
+        if (response.status === 201) {
+          alert("Pet created successfully");
+          fetchPets();
+        }
+      } else if (modalMode === "update" && selectedPet) {
+        console.log("the pet id", selectedPet);
+        const response = await axios.put(
+          `https://api.petwatch.tech/pet/${selectedPet.id}`,
+          { ...petData },
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          alert("Pet updated successfully");
+          fetchPets();
+        }
+      }
+
+      handleCloseModal();
+    } catch (error) {
+      alert("Failed to save pet. Please try again.");
+    }
+  };
+
+  const handleDeletePet = async () => {
+    try {
+      if (selectedPet) {
+        const accessToken = localStorage.getItem("accessToken");
+
+        const response = await axios.delete(
+          `https://api.petwatch.tech/pet/${selectedPet.id}`,
+          {
+            headers: {
+              Authorization: `Bearer ${accessToken}`,
+            },
+          }
+        );
+
+        if (response.status === 200) {
+          alert("Pet deleted successfully");
+          fetchPets();
+          handleCloseModal();
+        }
       }
     } catch (error) {
-      alert("Failed to create pet. Please try again.");
+      alert("Failed to delete pet. Please try again.");
     }
   };
 
   return (
     <Container className="dashboard-container">
-      <Row className="justify-content-center">
+      <Row className="justify-content-between align-items-center">
         <Col md={8}>
-          <Card className="p-4 shadow-sm">
-            <Card.Body>
-              <h1 className="text-center mb-4">Bienvenido</h1>
-              <p className="text-center">{username}</p>
-              <div className="text-center mt-4">
-                <Button variant="primary" onClick={handleCreatePet}>
-                  Create Pet
-                </Button>
-              </div>
-            </Card.Body>
-          </Card>
+          <div className="d-flex justify-content-between align-items-center">
+            <h1 className="text-white mb-0">Bienvenido, {username}</h1>
+            <Button
+              variant="primary"
+              onClick={handleCreatePet}
+              className="rounded-circle"
+              style={{ width: "40px", height: "40px" }}
+            >
+              <FaPlus />
+            </Button>
+          </div>
         </Col>
       </Row>
 
       <Row className="mt-5">
         {pets.map((pet) => (
-          <PetCard key={pet.id} pet={pet} />
+          <Col key={pet.id} md={4} className="mb-4">
+            {" "}
+            {/* Ensure md={4} is applied */}
+            <div
+              onClick={() => handleEditPet(pet)}
+              style={{ minWidth: "700px", padding: "20px" }}
+            >
+              <PetCard pet={pet} />
+            </div>
+          </Col>
         ))}
       </Row>
 
       <Modal show={showModal} onHide={handleCloseModal}>
         <Modal.Header closeButton>
-          <Modal.Title>Create a New Pet</Modal.Title>
+          <Modal.Title>
+            {modalMode === "create" ? "Create a New Pet" : "Update Pet"}
+          </Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -164,11 +240,16 @@ const Dashboard = ({ username }: DashboardProps): JSX.Element => {
           </Form>
         </Modal.Body>
         <Modal.Footer>
+          {modalMode === "update" && (
+            <Button variant="danger" onClick={handleDeletePet}>
+              Delete Pet
+            </Button>
+          )}
           <Button variant="secondary" onClick={handleCloseModal}>
             Close
           </Button>
           <Button variant="primary" onClick={handleSubmit}>
-            Save Pet
+            {modalMode === "create" ? "Save Pet" : "Update Pet"}
           </Button>
         </Modal.Footer>
       </Modal>
