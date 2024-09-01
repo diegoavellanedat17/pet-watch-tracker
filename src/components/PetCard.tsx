@@ -3,6 +3,41 @@ import { useState } from "react";
 import { Pet } from "../types";
 import { QRCodeCanvas } from "qrcode.react";
 import { FaQrcode } from "react-icons/fa";
+import dogAvatar from "../assets/dogAvatar.jpg";
+import catAvatar from "../assets/catAvatar.jpg";
+import { breedOptions, typeOptions, getLabelForValue } from "../utils";
+
+const calculateAge = (bornDate?: Date): string => {
+  if (!bornDate) return "Unknown";
+
+  const today = new Date();
+  const birthDate = new Date(bornDate);
+
+  let ageYears = today.getFullYear() - birthDate.getFullYear();
+  let ageMonths = today.getMonth() - birthDate.getMonth();
+  let ageDays = today.getDate() - birthDate.getDate();
+
+  if (ageDays < 0) {
+    ageMonths--;
+    const previousMonth = new Date(today.getFullYear(), today.getMonth(), 0);
+    ageDays += previousMonth.getDate();
+  }
+
+  if (ageMonths < 0) {
+    ageYears--;
+    ageMonths += 12;
+  }
+
+  if (ageYears > 0) {
+    return `${ageYears} years${ageMonths > 0 ? `, ${ageMonths} months` : ""}`;
+  } else if (ageMonths > 0) {
+    return `${ageMonths} months${ageDays > 0 ? `, ${ageDays} days` : ""}`;
+  } else if (ageDays > 0) {
+    return `${ageDays} days`;
+  } else {
+    return "Just born";
+  }
+};
 
 const PetCard = ({
   pet,
@@ -22,20 +57,24 @@ const PetCard = ({
     setShowQRModal(false);
   };
 
+  const avatar = pet.imageUrl
+    ? pet.imageUrl
+    : pet.type === "cat"
+    ? catAvatar
+    : dogAvatar;
+
   return (
     <Col>
       <Card className="position-relative" onClick={() => onEdit(pet)}>
-        <Card.Img
-          variant="top"
-          src={pet.imageUrl || "https://via.placeholder.com/150"}
-          alt={pet.name}
-        />
+        <Card.Img variant="top" src={avatar} alt={pet.name} />
         <Card.Body>
           <Card.Title>{pet.name}</Card.Title>
           <Card.Text>
-            <strong>Type:</strong> {pet.type} <br />
-            <strong>Breed:</strong> {pet.breed} <br />
-            <strong>Age:</strong> {pet.age} years
+            <strong>Type:</strong> {getLabelForValue(pet.type, typeOptions)}{" "}
+            <br />
+            <strong>Breed:</strong> {getLabelForValue(pet.breed, breedOptions)}{" "}
+            <br />
+            <strong>Age:</strong> {calculateAge(pet.bornDate)}
           </Card.Text>
         </Card.Body>
         <Button

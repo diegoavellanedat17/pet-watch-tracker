@@ -3,8 +3,9 @@ import { Container, Row, Col, Button, Modal, Form } from "react-bootstrap";
 import { Pet } from "../types";
 import axios from "axios";
 import PetCard from "./PetCard";
+import Select from "react-select";
 import { FaPlus } from "react-icons/fa";
-
+import { breedOptions, typeOptions } from "../utils";
 import "./Dashboard.css";
 
 interface DashboardProps {
@@ -17,7 +18,7 @@ const Dashboard = ({ username }: DashboardProps): JSX.Element => {
   const [selectedPet, setSelectedPet] = useState<Pet | null>(null);
   const [petData, setPetData] = useState({
     name: "",
-    age: "",
+    bornDate: "",
     type: "",
     breed: "",
   });
@@ -52,7 +53,7 @@ const Dashboard = ({ username }: DashboardProps): JSX.Element => {
     setModalMode("create");
     setPetData({
       name: "",
-      age: "",
+      bornDate: "",
       type: "",
       breed: "",
     });
@@ -62,9 +63,12 @@ const Dashboard = ({ username }: DashboardProps): JSX.Element => {
   const handleEditPet = (pet: Pet) => {
     setModalMode("update");
     setSelectedPet(pet);
+
     setPetData({
       name: pet.name,
-      age: pet.age.toString(),
+      bornDate: pet.bornDate
+        ? new Date(pet.bornDate).toISOString().substring(0, 10)
+        : "",
       type: pet.type,
       breed: pet.breed,
     });
@@ -76,7 +80,25 @@ const Dashboard = ({ username }: DashboardProps): JSX.Element => {
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setPetData({ ...petData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setPetData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+  };
+
+  const handleTypeChange = (selectedOption: any) => {
+    setPetData((prevData) => ({
+      ...prevData,
+      type: selectedOption.value,
+    }));
+  };
+
+  const handleBreedChange = (selectedOption: any) => {
+    setPetData((prevData) => ({
+      ...prevData,
+      breed: selectedOption.value,
+    }));
   };
 
   const handleSubmit = async () => {
@@ -192,34 +214,35 @@ const Dashboard = ({ username }: DashboardProps): JSX.Element => {
                 onChange={handleChange}
               />
             </Form.Group>
-            <Form.Group controlId="formPetAge">
-              <Form.Label>Age</Form.Label>
+            <Form.Group controlId="formPetBornDate">
+              <Form.Label>Born Date</Form.Label>
               <Form.Control
-                type="number"
-                placeholder="Enter pet age"
-                name="age"
-                value={petData.age}
+                type="date"
+                name="bornDate"
+                value={petData.bornDate || ""}
                 onChange={handleChange}
               />
             </Form.Group>
             <Form.Group controlId="formPetType">
               <Form.Label>Type</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter pet type (e.g., Dog, Cat)"
-                name="type"
-                value={petData.type}
-                onChange={handleChange}
+              <Select
+                options={typeOptions}
+                value={typeOptions.find(
+                  (option) => option.value === petData.type
+                )}
+                onChange={handleTypeChange}
+                placeholder="Select type (Dog or Cat)"
               />
             </Form.Group>
             <Form.Group controlId="formPetBreed">
               <Form.Label>Breed</Form.Label>
-              <Form.Control
-                type="text"
-                placeholder="Enter pet breed"
-                name="breed"
-                value={petData.breed}
-                onChange={handleChange}
+              <Select
+                options={breedOptions}
+                value={breedOptions.find(
+                  (option) => option.value === petData.breed
+                )}
+                onChange={handleBreedChange}
+                placeholder="Select a breed"
               />
             </Form.Group>
           </Form>
