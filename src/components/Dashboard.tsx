@@ -4,6 +4,7 @@ import { Pet } from "../types";
 import axios from "axios";
 import PetCard from "./PetCard";
 import { FaPlus } from "react-icons/fa";
+
 import "./Dashboard.css";
 
 interface DashboardProps {
@@ -60,7 +61,6 @@ const Dashboard = ({ username }: DashboardProps): JSX.Element => {
 
   const handleEditPet = (pet: Pet) => {
     setModalMode("update");
-    console.log(pet);
     setSelectedPet(pet);
     setPetData({
       name: pet.name,
@@ -99,7 +99,6 @@ const Dashboard = ({ username }: DashboardProps): JSX.Element => {
           fetchPets();
         }
       } else if (modalMode === "update" && selectedPet) {
-        console.log("the pet id", selectedPet);
         const response = await axios.put(
           `https://api.petwatch.tech/pet/${selectedPet._id}`,
           { ...petData },
@@ -150,32 +149,27 @@ const Dashboard = ({ username }: DashboardProps): JSX.Element => {
   return (
     <Container className="dashboard-container">
       <Row className="justify-content-between align-items-center">
-        <Col md={8}>
+        <Col xs={8}>
           <div className="d-flex justify-content-between align-items-center">
             <h1 className="text-white mb-0">Bienvenido, {username}</h1>
-            <Button
-              variant="primary"
-              onClick={handleCreatePet}
-              className="rounded-circle"
-              style={{ width: "40px", height: "40px" }}
-            >
-              <FaPlus />
-            </Button>
           </div>
+        </Col>
+        <Col xs={2}>
+          <Button
+            variant="primary"
+            onClick={handleCreatePet}
+            className="rounded-circle"
+            style={{ width: "40px", height: "40px" }}
+          >
+            <FaPlus />
+          </Button>
         </Col>
       </Row>
 
       <Row className="mt-5">
         {pets.map((pet) => (
-          <Col key={pet._id} md={4} className="mb-4">
-            {" "}
-            {/* Ensure md={4} is applied */}
-            <div
-              onClick={() => handleEditPet(pet)}
-              style={{ minWidth: "700px", padding: "20px" }}
-            >
-              <PetCard pet={pet} />
-            </div>
+          <Col key={pet._id} md={3} className="mb-4">
+            <PetCard pet={pet} onEdit={handleEditPet} />
           </Col>
         ))}
       </Row>
@@ -236,9 +230,6 @@ const Dashboard = ({ username }: DashboardProps): JSX.Element => {
               Delete Pet
             </Button>
           )}
-          <Button variant="secondary" onClick={handleCloseModal}>
-            Close
-          </Button>
           <Button variant="primary" onClick={handleSubmit}>
             {modalMode === "create" ? "Save Pet" : "Update Pet"}
           </Button>

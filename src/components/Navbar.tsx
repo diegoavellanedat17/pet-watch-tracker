@@ -44,13 +44,23 @@ const NavigationBar: React.FC<NavigationBarProps> = ({
             </Nav.Link>
           </LinkContainer>
           {isAuthenticated ? (
-            <Nav.Link
-              className="nav-link-padding"
-              style={{ color: "var(--text-color)" }}
-              onClick={onLogout}
-            >
-              Logout
-            </Nav.Link>
+            <>
+              <LinkContainer to="/dashboard">
+                <Nav.Link
+                  className="nav-link-padding"
+                  style={{ color: "var(--text-color)" }}
+                >
+                  My Dashboard
+                </Nav.Link>
+              </LinkContainer>
+              <Nav.Link
+                className="nav-link-padding"
+                style={{ color: "var(--text-color)" }}
+                onClick={onLogout}
+              >
+                Logout
+              </Nav.Link>
+            </>
           ) : (
             <>
               <LinkContainer to="/register">
