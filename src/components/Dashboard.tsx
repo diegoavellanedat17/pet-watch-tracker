@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Button, Modal, Form } from "react-bootstrap";
+import { Pet } from "../types";
 import axios from "axios";
 import PetCard from "./PetCard";
 import { FaPlus } from "react-icons/fa";
@@ -7,16 +8,6 @@ import "./Dashboard.css";
 
 interface DashboardProps {
   username: string;
-}
-
-interface Pet {
-  id: string;
-  name: string;
-  age: number;
-  type: string;
-  breed: string;
-  imageUrl: string | null;
-  owner_id: string;
 }
 
 const Dashboard = ({ username }: DashboardProps): JSX.Element => {
@@ -110,7 +101,7 @@ const Dashboard = ({ username }: DashboardProps): JSX.Element => {
       } else if (modalMode === "update" && selectedPet) {
         console.log("the pet id", selectedPet);
         const response = await axios.put(
-          `https://api.petwatch.tech/pet/${selectedPet.id}`,
+          `https://api.petwatch.tech/pet/${selectedPet._id}`,
           { ...petData },
           {
             headers: {
@@ -137,7 +128,7 @@ const Dashboard = ({ username }: DashboardProps): JSX.Element => {
         const accessToken = localStorage.getItem("accessToken");
 
         const response = await axios.delete(
-          `https://api.petwatch.tech/pet/${selectedPet.id}`,
+          `https://api.petwatch.tech/pet/${selectedPet._id}`,
           {
             headers: {
               Authorization: `Bearer ${accessToken}`,
@@ -176,7 +167,7 @@ const Dashboard = ({ username }: DashboardProps): JSX.Element => {
 
       <Row className="mt-5">
         {pets.map((pet) => (
-          <Col key={pet.id} md={4} className="mb-4">
+          <Col key={pet._id} md={4} className="mb-4">
             {" "}
             {/* Ensure md={4} is applied */}
             <div

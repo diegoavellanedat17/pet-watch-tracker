@@ -1,14 +1,6 @@
 import React from "react";
 import { Card, Col } from "react-bootstrap";
-
-interface Pet {
-  id: string;
-  name: string;
-  age: number;
-  type: string;
-  breed: string;
-  imageUrl: string | null;
-}
+import { Pet } from "../types";
 
 const PetCard = ({ pet }: { pet: Pet }): JSX.Element => {
   return (
