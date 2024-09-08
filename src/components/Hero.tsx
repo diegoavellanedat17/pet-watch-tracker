@@ -1,6 +1,7 @@
 import React from "react";
 import { Container, Row, Col, Button } from "react-bootstrap";
 import "./Hero.css";
+import { Link } from "react-router-dom";
 import hero from "../assets/heroTest.png";
 
 const Hero: React.FC = () => {
@@ -14,14 +15,14 @@ const Hero: React.FC = () => {
               Monitorea a tu mascota como si estuvieras a su lado
             </p>
             <div className="d-flex justify-content-center">
-              <Button
-                variant="primary"
-                className="rounded-pill download-button mt-2"
-                href="https://play.google.com/store"
-                target="_blank"
-              >
-                Descargar App
-              </Button>
+              {/* <Link to="/register" className="link-info">
+                <Button
+                  variant="primary"
+                  className="rounded-pill download-button mt-2"
+                >
+                  Empezar
+                </Button>
+              </Link> */}
             </div>
           </Col>
 
