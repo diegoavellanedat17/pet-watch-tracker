@@ -4,11 +4,6 @@ import axios from "axios";
 import PhoneInputField from "./PhoneInputField";
 import "./JoinUs.css";
 
-const validatePhoneNumber = (phone: string): boolean => {
-  const phoneRegex = /^\d{10}$/;
-  return phoneRegex.test(phone);
-};
-
 const JoinUs: React.FC = () => {
   const [contributionType, setContributionType] = useState("");
   const [email, setEmail] = useState("");
@@ -37,12 +32,6 @@ const JoinUs: React.FC = () => {
 
     if (!mappedType) {
       setError("Tipo de contribución no válido.");
-      setShowSuccess(false);
-      return;
-    }
-
-    if (!validatePhoneNumber(phone)) {
-      setError("El número de teléfono no es válido.");
       setShowSuccess(false);
       return;
     }
