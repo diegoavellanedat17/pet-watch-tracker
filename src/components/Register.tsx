@@ -1,6 +1,14 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap";
+import {
+  Form,
+  Button,
+  Container,
+  Row,
+  Col,
+  Alert,
+  InputGroup,
+} from "react-bootstrap";
 import axios from "axios";
 import PhoneInputField from "./PhoneInputField";
 import "./Register.css";
@@ -16,6 +24,9 @@ const Register: React.FC = () => {
   const [isVerificationSent, setIsVerificationSent] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [showSuccess, setShowSuccess] = useState(false);
+  const [showPassword, setShowPassword] = useState(false);
+  const [passwordError, setPasswordError] = useState<string | null>(null);
+
   const navigate = useNavigate();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -26,8 +37,23 @@ const Register: React.FC = () => {
     setFormData({ ...formData, phoneNumber: `+${phone}` });
   };
 
+  const validatePassword = (password: string) => {
+    const regex =
+      /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!,.!*\-_])[A-Za-z\d!,.!*\-_]{8,}$/;
+    return regex.test(password);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+
+    if (!validatePassword(formData.password)) {
+      setPasswordError(
+        "Debe contener al menos 8 caracteres, una mayúscula, una minúscula, un número y un carácter especial (!,.!*-_)"
+      );
+      return;
+    } else {
+      setPasswordError(null);
+    }
 
     try {
       const response = await axios.post(
@@ -101,14 +127,25 @@ const Register: React.FC = () => {
 
               <Form.Group controlId="password" className="mb-3">
                 <Form.Label className="light-color-text">Contraseña</Form.Label>
-                <Form.Control
-                  type="password"
-                  name="password"
-                  placeholder="Ingresa la contraseña"
-                  value={formData.password}
-                  onChange={handleInputChange}
-                  required
-                />
+                <InputGroup>
+                  <Form.Control
+                    type={showPassword ? "text" : "password"}
+                    name="password"
+                    placeholder="Ingresa la contraseña"
+                    value={formData.password}
+                    onChange={handleInputChange}
+                    required
+                  />
+                  <Button
+                    variant="outline-secondary"
+                    onClick={() => setShowPassword(!showPassword)}
+                  >
+                    {showPassword ? "Ocultar" : "Mostrar"}
+                  </Button>
+                </InputGroup>
+                {passwordError && (
+                  <div style={{ color: "red" }}>{passwordError}</div>
+                )}
               </Form.Group>
 
               <Form.Group controlId="email" className="mb-3">
