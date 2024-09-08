@@ -15,14 +15,14 @@ const Hero: React.FC = () => {
               Monitorea a tu mascota como si estuvieras a su lado
             </p>
             <div className="d-flex justify-content-center">
-              {/* <Link to="/register" className="link-info">
+              <Link to="/register" className="link-info">
                 <Button
                   variant="primary"
                   className="rounded-pill download-button mt-2"
                 >
                   Empezar
                 </Button>
-              </Link> */}
+              </Link>
             </div>
           </Col>
 
